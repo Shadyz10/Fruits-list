@@ -132,68 +132,57 @@ filterButton.addEventListener('click', () => {
 
 /*** СОРТИРОВКА ***/
 
-let sortKind = 'bubbleSort'; // инициализация состояния вида сортировки
+let sortKind = 'quickSort' // инициализация состояния вида сортировки
 let sortTime = '-'; // инициализация состояния времени сортировки
 
 const comparationColor = (a, b) => {
   const priorityColor = ['светло-коричневый', 'зеленый','фиолетовый', 'розово-красный', 'желтый'];
   const color1 = priorityColor.indexOf(a.color);
-  const color2 = priorityColor.indexOf(b.color);
+  const color2 = priorityColor.indexOf(b.color); 
   return color1 > color2;
 };
 
 const sortAPI = {
-	bubbleSort(arr, comparation) {
-		const n = arr.length
-		for (i = 0; i < n - 1; i++) {
-			for (j = 0; j < n - 1 - i; j++) {
-				if (comparation(arr[j], arr[j + 1])) {
-					let temp = arr[j + 1]
-					arr[j + 1] = arr[j]
-					arr[j] = temp
-				}
-			}
-		}
-	},
 
-	quickSort(arr, comparation) {
-		if (arr.length <= 1) {
-      return arr;
-    }
-    let index = Math.floor(arr.length / 2);
-    let currentItem = arr[index];
-    let left = [];
-    let right = [];
-    for (let i = 0; i < arr.length; i += 1) {
-      if (i === index) {
-        continue;
-      }
-      if (comparation(arr[i], currentItem)) {
-        right.push(arr[i]);
-      } else {
-        left.push(arr[i])
-      }
-    }
-    return [...this.quickSort(left, comparation), currentItem, ...this.quickSort(right, comparation)];
-	},
+// Вызов метода сортировки пузырьком
+
+	bubbleSort(arr, comparation){
+    bubbleMethod(arr, comparation)  
+  },
+
+// Вызов метода быстрой сортировки
+
+	quickSort(arr, comparation){
+    quickSortMethod(arr, comparation)
+  },
 
 	// выполняет сортировку и производит замер времени
+
 	startSort(sort, arr, comparation) {
 		const start = new Date().getTime()
 		sort(arr, comparation)
 		const end = new Date().getTime()
 		sortTime = `${end - start} ms`
-	},
+	}
 }
 
-
 // инициализация полей
+
 sortKindLabel.textContent = sortKind;
 sortTimeLabel.textContent = sortTime;
 
 sortChangeButton.addEventListener('click', () => {
-  sortKindLabel.textContent === 'bubbleSort' ? sortKindLabel.textContent = 'quickSort' : sortKindLabel.textContent = 'bubbleSort';
+  if (sortKindLabel.textContent === 'bubbleSort'){
+    sortKindLabel.textContent = 'quickSort';
+    sortKind = 'quickSort';
+  } else {
+    sortKindLabel.textContent = 'bubbleSort';
+		sortKind = 'bubbleSort';
+  }
+  // sortKindLabel.textContent === 'bubbleSort' ? sortKindLabel.textContent = 'quickSort' : sortKindLabel.textContent = 'bubbleSort';
 });
+
+// Кнопка активации сортировки
 
 sortActionButton.addEventListener('click', () => {
   sortTimeLabel.textContent = '...sorting'
