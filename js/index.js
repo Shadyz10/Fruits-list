@@ -51,13 +51,14 @@ const display = () => {
     if (fruits[i].color == 'светло-коричневый') {
 			li.classList.add('fruit_lightbrown')
 		} else
-    if (fruits[i].color == 'оранжевый') {
+    if (fruits[i].color === 'оранжевый') {
       li.classList.add('fruit_orange')
     }
     else {
-      li.classList.add('newFruit')
+      li.classList.add('fruit_newFruit')
     }
     fruitsList.appendChild(li)
+    console.log(fruits)
 
     const div = document.createElement('div')
     div.classList.add('fruit__info')
@@ -195,11 +196,13 @@ sortActionButton.addEventListener('click', () => {
 /*** ДОБАВИТЬ ФРУКТ ***/
 
 addActionButton.addEventListener('click', () => {
-  if (kindInput.value === '' || colorInput.value === '' || weightInput.value === ''){
+  if (kindInput.value == '' || colorInput.value == '' || weightInput.value == ''){
     alert('Мне нужны полные данные фрукта, что-то не заполнил...')
+    return
   }
   if (isNaN(weightInput.value)){
     alert('Укажите вес числом!')
+    return
   } else {
     fruits.push({
 			kind: kindInput.value,
