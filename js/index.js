@@ -58,14 +58,13 @@ const display = () => {
       li.classList.add('fruit_newFruit')
     }
     fruitsList.appendChild(li)
-    console.log(fruits)
-
+ 
     const div = document.createElement('div')
     div.classList.add('fruit__info')
     li.appendChild(div)
 
     div.innerHTML = `
-      <div>index: ${i + 1}</div>
+      <div>index: ${i}</div>
       <div>kind: ${fruits[i].kind}</div>
       <div>color: ${fruits[i].color}</div>
       <div>weight (кг): ${fruits[i].weight}</div>
